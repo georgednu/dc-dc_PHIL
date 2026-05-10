@@ -21,8 +21,8 @@ wire signed [17:0] a_L;
 wire signed [17:0] a_H;
 
 //assign a_L = (valid_in)? {a_in[35], a_in[16:0]} : 0;
-assign a_L = (valid_in)? {a_in[16:0], 0} : 0;
-assign a_H = (valid_in)? {a_in[35], a_in[33:17]} : 0;
+assign a_L = (valid_in)? a_in[17:0] : 0;
+assign a_H = (valid_in)? a_in[35:18] : 0;
 
 reg signed [17:0] mult_ina_L;
 reg signed [17:0] mult_ina_H;
@@ -54,7 +54,7 @@ always @(posedge clk) begin
         mult_out_L <= mult_ina_L*mult_inb_L;
         mult_out_H <= mult_ina_H*mult_inb_H;
 
-        mult_out <= mult_out_H + mult_out_L[42:17];
+        mult_out <= mult_out_H + mult_out_L[42:18];
     end
 end
 
@@ -85,7 +85,7 @@ always @(posedge clk) begin
     end
 end
 //Q13.29 to Q12.23
-assign p_out = p_out_full[41:6];
+assign p_out = p_out_full[40:5];
 
 reg [4:0] valid_pipeline;
 always @(posedge clk) begin
